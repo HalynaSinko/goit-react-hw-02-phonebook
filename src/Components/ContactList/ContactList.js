@@ -9,11 +9,10 @@ const ContactListItem = ({ id, name, number, onRemove }) => {
 };
 
 const ContactList = ({ contacts, onRemove }) => {
+  if (contacts.length === 0) return null;
   return (
     <ul>
-      {contacts.map((contact) => (
-        <ContactListItem {...contact} onRemove={onRemove} />
-      ))}
+      {contacts.map((contact) => ContactListItem({ ...contact, onRemove }))}
     </ul>
   );
 };
