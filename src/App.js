@@ -16,20 +16,25 @@ class App extends Component {
     filter: "",
   };
 
-  addNewContact = (newContact) => {
+  handleAddContact = (newContact) => {
     // console.log(newContact);
-    const validContact = this.state.contacts.find(
-      (contact) => contact.name === newContact.name
-    );
-    // console.log(validContact);
-
-    if (validContact) {
-      alert(`${validContact.name} is already in contacts`);
+    const uniqueContact = this.handleUniqueContact(newContact);
+    if (!uniqueContact) {
+      alert(`${newContact.name} is already in contacts`);
       return;
     }
     this.setState((prevState) => ({
       contacts: [newContact, ...prevState.contacts],
     }));
+  };
+
+  handleUniqueContact = (newContact) => {
+    const { contacts } = this.state;
+    const isExistContact = !!contacts.find(
+      (contact) => contact.name === newContact.name
+    );
+    return !isExistContact;
+    // console.log(isExistContact);
   };
 
   handleChangeFilter = (e) => {
@@ -47,16 +52,24 @@ class App extends Component {
     });
   };
 
+  handleRemoveContact = (id) =>
+    this.setState(({ contacts }) => ({
+      contacts: contacts.filter((contact) => contact.id !== id),
+    }));
+
   render() {
     const { filter } = this.state;
     const visibleContacts = this.getVisibleContacts();
     return (
       <div>
         <h1>Phonebook</h1>
-        <ContactForm onSubmit={this.addNewContact} />
+        <ContactForm onSubmit={this.handleAddContact} />
         <h2>Contacts</h2>
         <Filter value={filter} onChange={this.handleChangeFilter} />
-        <ContactList contacts={visibleContacts} />
+        <ContactList
+          contacts={visibleContacts}
+          onRemove={this.handleRemoveContact}
+        />
       </div>
     );
   }
