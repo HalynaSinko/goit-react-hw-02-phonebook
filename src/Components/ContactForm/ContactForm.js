@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import { Component } from "react";
 import { v4 as uuidv4 } from "uuid";
 
@@ -24,16 +26,6 @@ class ContactForm extends Component {
     onSubmit({ id: uuidv4(), name, number });
 
     this.reset();
-
-    // const newContact = {
-    //   id: uuidv4(),
-    //   name,
-    //   number,
-    // };
-    // this.props.onSubmit(newContact);
-
-    // console.log(newContact);
-    // console.log(`this.state`, name, number);
   };
 
   reset = () => {
@@ -73,4 +65,9 @@ class ContactForm extends Component {
     );
   }
 }
+
+ContactForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
+
 export default ContactForm;
