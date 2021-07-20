@@ -21,7 +21,7 @@ class ContactForm extends Component {
       name,
       number,
     };
-    console.log(newContact);
+    // console.log(newContact);
     // console.log(`this.state`, name, number);
     this.props.onSubmit(newContact);
     this.reset();
