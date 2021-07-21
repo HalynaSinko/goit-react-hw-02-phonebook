@@ -61,7 +61,7 @@ class App extends Component {
     const { filter } = this.state;
     const visibleContacts = this.getVisibleContacts();
     return (
-      <div>
+      <div className="contaiter">
         <h1>Phonebook</h1>
         <ContactForm onSubmit={this.handleAddContact} />
         <h2>Contacts</h2>
